@@ -16,4 +16,4 @@ class Solution:
 
                     left += 1 # right -=1 이어도 상관 없음. 단지 다음 계산을 위한 방법.
         
-        return sorted(map(list, list(answer)))
+        return map(list, list(answer))
