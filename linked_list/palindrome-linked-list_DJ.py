@@ -1,13 +1,21 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        text = ""
-        
-        while head:
-            text += str(head.val)
-            head = head.next
+        slow = fast = head
+        rev = None
 
-        if len(text) % 2 == 0 and text[:len(text)//2] == text[-1:len(text)//2-1:-1]:
-            return True
-        elif len(text) % 2 == 1 and text[:len(text)//2] == text[-1:len(text)//2:-1]:
-            return True
-        return False
+        while fast and fast.next:
+            fast = fast.next.next
+            rev, rev.next, slow = slow, rev, slow.next
+        
+        if fast: # the number of nodes is odd.
+            slow = slow.next
+        
+        while slow and slow.val == rev.val:
+            slow, rev = slow.next, rev.next
+
+        return not rev
